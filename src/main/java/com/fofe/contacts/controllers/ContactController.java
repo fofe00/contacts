@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+//TODO make this contoller restfull and create another who work with Thymeleaf
+
 
 @RestController
 public class ContactController {
@@ -16,6 +18,10 @@ public class ContactController {
     @GetMapping("/contats")
     public List<Contact> getAllContats(){
         return contactService.getAllContats();
+    }
+    public  List<Contact> getAllContatsWithPaginate(){
+        //TODO add pagination
+        return  null;
     }
     @GetMapping("/contact/{id}")
     public Optional<Contact> getContact(@PathVariable("id") Long id){
