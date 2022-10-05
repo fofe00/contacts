@@ -28,7 +28,11 @@ public class ContactService {
     public void  delete(long id){
         contactRepository.deleteById(id);
     }
-    public List<Contact> contactsByName(String name){
-       return contactRepository.findContactsByLastName(name);
+    public List<Contact> contactsByLastName(String name){
+       return contactRepository.findContactsByLastNameContains(name);
+    }
+
+    public List<Contact> contactsByFirstName(String name){
+        return contactRepository.findContactsByFirstNameContains(name);
     }
 }

@@ -45,9 +45,13 @@ public class ContactController {
         return  "offk";
     }
 
-    @GetMapping("contact/name/{name}")
-    public List<Contact> byName(@PathVariable("name") String name){
-        return contactService.contactsByName(name);
+    @GetMapping("lastname/{name}")
+    public List<Contact> byLastName(@PathVariable("name") String name){
+        return contactService.contactsByLastName(name);
+    }
+    @GetMapping("firstname/{name}")
+    public List<Contact> byFirstName(@PathVariable("name") String name){
+        return contactService.contactsByFirstName(name);
     }
 
 }
