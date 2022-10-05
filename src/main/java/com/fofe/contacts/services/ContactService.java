@@ -35,4 +35,8 @@ public class ContactService {
     public List<Contact> contactsByFirstName(String name){
         return contactRepository.findContactsByFirstNameContains(name);
     }
+
+    public List<Contact> findContactsByLastNameContainsAndFirstNameContains(String firstName, String lastName) {
+        return  contactRepository.findContactsByLastNameContainsAndFirstNameContains(firstName,lastName);
+    }
 }

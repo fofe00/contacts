@@ -11,47 +11,49 @@ import java.util.Optional;
 
 
 @RestController
+@RequestMapping("/api/contact")
 public class ContactController {
     @Autowired
     ContactService contactService;
 
-    @GetMapping("/contats")
-    public List<Contact> getAllContats(){
-        return contactService.getAllContats();
+    @GetMapping("/")
+    public List<Contact> getAllContacts(@RequestParam(name = "first",defaultValue = "",required = false) String firstName,
+                                       @RequestParam(name = "last",defaultValue = "",required = false) String lastName){
+        System.out.println(firstName);
+        if (!firstName.isEmpty() && !lastName.isEmpty()){
+            return contactService.findContactsByLastNameContainsAndFirstNameContains(firstName,lastName);
+        }else if(!firstName.isEmpty()){
+            return contactService.contactsByFirstName(firstName);
+        }else {
+            return  contactService.contactsByLastName(lastName);
+        }
     }
-    public  List<Contact> getAllContatsWithPaginate(){
+
+    @GetMapping("/paginate/")
+    public  List<Contact> getAllContactsWithPaginate(){
         //TODO add pagination
         return  null;
     }
-    @GetMapping("/contact/{id}")
+    @GetMapping("/{id}")
     public Optional<Contact> getContact(@PathVariable("id") Long id){
         System.out.println(id);
         return contactService.getOne(id);
     }
 
-    @PostMapping("/contact/save")
+    @PostMapping("/")
     public String addContact(@RequestBody Contact contact){
         contactService.save(contact);
         return "otk";
     }
-    @PutMapping("/contact/update")
+    @PutMapping("/")
     public String updateContact(@RequestBody Contact contact){
         contactService.update(contact);
         return "ok";
     }
-    @DeleteMapping("contact/delete/{id}")
+    @DeleteMapping("/{id}")
     public String deleteContact(@PathVariable("id") Long id){
         contactService.delete(id);
-        return  "offk";
-    }
-
-    @GetMapping("lastname/{name}")
-    public List<Contact> byLastName(@PathVariable("name") String name){
-        return contactService.contactsByLastName(name);
-    }
-    @GetMapping("firstname/{name}")
-    public List<Contact> byFirstName(@PathVariable("name") String name){
-        return contactService.contactsByFirstName(name);
+        return  "delete ok";
     }
 
 }
